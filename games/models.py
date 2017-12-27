@@ -50,3 +50,21 @@ class Player(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class PlayerScore(models.Model):
+    player = models.ForeignKey(
+        Player,
+        related_name='scores',
+        on_delete=models.CASCADE
+    )
+    game = models.ForeignKey(
+        Game,
+        on_delete=models.CASCADE
+    )
+    score = models.IntegerField()
+    score_date = models.DateTimeField()
+
+    class Meta:
+        # Order by score descending
+        ordering = ('-score',)
