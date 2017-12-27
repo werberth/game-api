@@ -76,3 +76,26 @@ class PlayerSerializer(serializers.HyperlinkedModelSerializer):
             'gender_description',
             'scores',
         )
+
+
+class PlayerScoreSerializer(serializers.HyperlinkedModelSerializer):
+    player = serializers.SlugRelatedField(
+        queryset=Player.objects.all(),
+        slug_field='name'
+    )
+    # We want to display the game's name instead of the id
+    game = serializers.SlugRelatedField(
+        queryset=Game.objects.all(),
+        slug_field='name'
+    )
+
+    class Meta:
+        model = PlayerScore
+        fields = (
+            'url',
+            'pk',
+            'score',
+            'score_date',
+            'player',
+            'game'
+        )
