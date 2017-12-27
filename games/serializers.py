@@ -40,3 +40,39 @@ class GameSerializer(serializers.ModelSerializer):
             'game_category',
             'played'
         )
+
+
+class ScoreSerializer(serializers.HyperlinkedModelSerializer):
+    # We want to display all the details for the game
+    game = GameSerializer()
+    # We don't include the player beacuse it will be nested n the player
+
+    class Meta:
+        model = PlayerScore
+        fields = (
+            'url',
+            'pk',
+            'score',
+            'score_date',
+            'game',
+        )
+
+
+class PlayerSerializer(serializers.HyperlinkedModelSerializer):
+    scores = ScoreSerializer(many=True, read_only=True)
+    gender = serializers.ChoiceField(
+        choices=Player.GENDER_CHOICES
+    )
+    gender_description = serializers.CharField(
+        source='get_gender_display'
+    )
+
+    class Meta:
+        model = Player
+        fields = (
+            'url',
+            'name',
+            'gender',
+            'gender_description',
+            'scores',
+        )
