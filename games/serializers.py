@@ -1,10 +1,11 @@
+from django.contrib.auth.models import User
+
 from rest_framework import serializers
 from games.models import (
     GameCategory,
     Game,
     Player,
     PlayerScore,
-    User
 )
 
 
