@@ -30,8 +30,8 @@ urlpatterns = [
     ),
     url(
         r'^players/(?P<pk>[0-9]+)/$',
-        views.PlayerList.as_view(),
-        name=views.PlayerList.name
+        views.PlayerDetail.as_view(),
+        name=views.PlayerDetail.name
     ),
     url(
         r'^player-scores/$',
