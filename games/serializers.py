@@ -64,7 +64,8 @@ class PlayerSerializer(serializers.HyperlinkedModelSerializer):
         choices=Player.GENDER_CHOICES
     )
     gender_description = serializers.CharField(
-        source='get_gender_display'
+        source='get_gender_display',
+        read_only=True
     )
 
     class Meta:
