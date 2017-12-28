@@ -25,6 +25,9 @@ class Game(models.Model):
     class Meta:
         ordering = ('name',)
 
+    def __str__(self):
+        return '{} - {}'.format(self.name, self.game_category)
+
 
 class Player(models.Model):
     MALE = 'M'
