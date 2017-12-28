@@ -1,4 +1,6 @@
 from rest_framework import generics
+from rest_framework.reverse import reverse
+from rest_framework.response import Response
 
 from .models import (
     Game,
@@ -12,7 +14,6 @@ from .serializers import (
     PlayerSerializer,
     PlayerScoreSerializer,
 )
-
 
 class GameCategoryList(generics.ListCreateAPIView):
     queryset = GameCategory.objects.all()
@@ -60,3 +61,27 @@ class PlayerScoreDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = PlayerScore.objects.all()
     serializers_class = PlayerScoreSerializer
     name = 'playerscore-detail'
+
+
+class ApiRoot(generics.GenericAPIView):
+    name = 'api-root'
+
+    def get(self, request, *args, **kwargs):
+        return Response({
+            'players': reverse(
+                PlayerList.name,
+                request=request
+            ),
+            'game-categories': reverse(
+                GameCategoryList.name,
+                request=request
+            ),
+            'games': reverse(
+                GameList.name,
+                request=request
+            ),
+            'scores': reverse(
+                PlayerScoreList.name,
+                request=request
+            )
+        })
