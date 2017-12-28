@@ -1,8 +1,12 @@
 from django.contrib.auth.models import User
+
+from rest_framework import filters
 from rest_framework import generics, permissions
 from rest_framework.throttling import ScopedRateThrottle
 from rest_framework.reverse import reverse
 from rest_framework.response import Response
+
+import django_filters
 
 from .permissions import IsOwnerOrReadOnly
 
@@ -39,6 +43,9 @@ class GameCategoryList(generics.ListCreateAPIView):
     name = 'gamecategory-list'
     throttle_scope = 'game-categories'
     throttle_scope = (ScopedRateThrottle,)
+    filter_fields = ('name',)
+    search_fields = ('^name',)
+    ordering_fields = ('name',)
 
 
 class GameCategoryDetail(generics.RetrieveUpdateDestroyAPIView):
