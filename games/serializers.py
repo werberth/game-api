@@ -3,7 +3,8 @@ from games.models import (
     GameCategory,
     Game,
     Player,
-    PlayerScore
+    PlayerScore,
+    User
 )
 
 
@@ -99,4 +100,26 @@ class PlayerScoreSerializer(serializers.HyperlinkedModelSerializer):
             'score_date',
             'player',
             'game'
+        )
+
+
+class UserGameSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Game
+        fields = (
+            'url',
+            'name'
+        )
+
+
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    games = UserGameSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = User
+        fields = (
+            'url',
+            'pk',
+            'username',
+            'games'
         )
