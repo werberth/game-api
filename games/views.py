@@ -1,6 +1,9 @@
-from rest_framework import generics
+from django.contrib.auth.models import User
+from rest_framework import generics, permissions
 from rest_framework.reverse import reverse
 from rest_framework.response import Response
+
+from .permissions import IsOwnerOrReadOnly
 
 from .models import (
     Game,
@@ -13,7 +16,21 @@ from .serializers import (
     GameCategorySerializer,
     PlayerSerializer,
     PlayerScoreSerializer,
+    UserSerializer
 )
+
+
+class UserList(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    name = 'user-list'
+
+
+class UserDetail(generics.RetireveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    name = 'user-detail'
+
 
 class GameCategoryList(generics.ListCreateAPIView):
     queryset = GameCategory.objects.all()
