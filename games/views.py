@@ -26,7 +26,7 @@ class UserList(generics.ListAPIView):
     name = 'user-list'
 
 
-class UserDetail(generics.RetireveAPIView):
+class UserDetail(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     name = 'user-detail'
