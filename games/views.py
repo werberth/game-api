@@ -94,6 +94,9 @@ class PlayerList(generics.ListCreateAPIView):
     queryset = Player.objects.all()
     serializer_class = PlayerSerializer
     name = 'player-list'
+    filter_fields = ('name', 'gender',)
+    search_fields = ('^name',)
+    ordering_fields = ('name',)
 
 
 class PlayerDetail(generics.RetrieveUpdateDestroyAPIView):
