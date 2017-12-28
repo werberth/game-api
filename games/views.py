@@ -1,14 +1,12 @@
 from django.contrib.auth.models import User
 
-from rest_framework import filters
 from rest_framework import generics, permissions
 from rest_framework.throttling import ScopedRateThrottle
 from rest_framework.reverse import reverse
 from rest_framework.response import Response
 
-import django_filters
-
 from .permissions import IsOwnerOrReadOnly
+from .filters import PlayerScoreFilter
 
 from .models import (
     Game,
@@ -109,6 +107,11 @@ class PlayerScoreList(generics.ListCreateAPIView):
     queryset = PlayerScore.objects.all()
     serializer_class = PlayerScoreSerializer
     name = 'playerscore-list'
+    filter_class = PlayerScoreFilter
+    ordering_fields = (
+        'score',
+        'score_date'
+    )
 
 
 class PlayerScoreDetail(generics.RetrieveUpdateDestroyAPIView):
