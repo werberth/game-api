@@ -49,6 +49,11 @@ class GameList(generics.ListCreateAPIView):
     serializer_class = GameSerializer
     name = 'game-list'
 
+    def perform_create(self, serializer):
+        # Pass an additional owner field to the create method
+        # To Set the owner to the user received in the request
+        serializer.save(owner=self.request.user)
+
 
 class GameDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Game.objects.all()
