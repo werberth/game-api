@@ -47,19 +47,19 @@ class PlayerList(generics.ListCreateAPIView):
 
 class PlayerDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Player.objects.all()
-    serializers_class = PlayerSerializer
+    serializer_class = PlayerSerializer
     name = 'player-detail'
 
 
 class PlayerScoreList(generics.ListCreateAPIView):
     queryset = PlayerScore.objects.all()
-    serializers_class = PlayerScoreSerializer
+    serializer_class = PlayerScoreSerializer
     name = 'playerscore-list'
 
 
 class PlayerScoreDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = PlayerScore.objects.all()
-    serializers_class = PlayerScoreSerializer
+    serializer_class = PlayerScoreSerializer
     name = 'playerscore-detail'
 
 
