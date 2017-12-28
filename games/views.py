@@ -64,6 +64,15 @@ class GameList(generics.ListCreateAPIView):
         permissions.IsAuthenticatedOrReadOnly,
         IsOwnerOrReadOnly
     )
+    filter_fields = (
+        'name',
+        'game_category',
+        'release_date',
+        'played',
+        'owner',
+    )
+    search_fields = ('^name',)
+    ordering_fields = ('name', 'release_date')
 
     def perform_create(self, serializer):
         # Pass an additional owner field to the create method
