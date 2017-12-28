@@ -38,7 +38,7 @@ class GameCategoryList(generics.ListCreateAPIView):
     serializer_class = GameCategorySerializer
     name = 'gamecategory-list'
     throttle_scope = 'game-categories'
-    throttle_scope = ('ScopedRateThrottle',)
+    throttle_scope = (ScopedRateThrottle,)
 
 
 class GameCategoryDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -46,7 +46,7 @@ class GameCategoryDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = GameCategorySerializer
     name = 'gamecategory-detail'
     throttle_scope = 'game-categories'
-    throttle_scope = ('ScopedRateThrottle',)
+    throttle_scope = (ScopedRateThrottle,)
 
 
 class GameList(generics.ListCreateAPIView):
