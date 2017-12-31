@@ -29,7 +29,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'games',
-    'crispy_forms'
+    'crispy_forms',
+    'django_nose',
 ]
 
 MIDDLEWARE = [
@@ -134,3 +135,15 @@ REST_FRAMEWORK = {
         'game-categories': '30/hour',
     }
 }
+
+# DJANGO NOSE SETTINGS
+# We want to use nose to run all the tests
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+# We want nose to measure coverage on the games app
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-erase',
+    '--cover-inclusive',
+    '--cover-package=games'
+]
