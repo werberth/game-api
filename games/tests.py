@@ -74,8 +74,7 @@ class GameCategoryTests(APITestCase):
         response = self.create_game_category(new_game_category_name)
         url = reverse(
             'gamecategory-detail',
-            None,
-            {response.data['pk']}
+            kwargs={'pk': response.data['pk']}
         )
         updated_game_category_name = 'Update Game Category Name'
         data = {
@@ -89,6 +88,32 @@ class GameCategoryTests(APITestCase):
             status.HTTP_200_OK
         )
         self.assertEqual(
-        	patch_response.data['name'],
-        	updated_game_category_name
+            patch_response.data['name'],
+            updated_game_category_name
+        )
+
+    def test_filter_game_category_by_name(self):
+        """
+        Ensure we can filter a game category by name
+        """
+        game_category_name1 = 'First game category name'
+        self.create_game_category(game_category_name1)
+        game_category_name2 = 'Second game category name'
+        self.create_game_category(game_category_name2)
+        filter_by_name = {'name': game_category_name1}
+        url = '{0}?{1}'.format(
+            reverse('gamecategory-list'),
+            urlencode(filter_by_name)
+        )
+        response = self.client.get(url, format='json')
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_200_OK
+        )
+        self.assertEqual(
+            response.data['count'], 1
+        )
+        self.assertEqual(
+            response.data['results'][0]['name'],
+            game_category_name1
         )
